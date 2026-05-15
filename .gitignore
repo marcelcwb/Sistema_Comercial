@@ -7,4 +7,6 @@
 !/storage/.keep
 /node_modules
 /public/assets
+/.rspec_status
+/coverage
 /.env

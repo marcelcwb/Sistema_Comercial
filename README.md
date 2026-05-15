@@ -49,6 +49,20 @@ bin/rails server
 
 Depois acesse `http://localhost:3000`.
 
+## Testes automatizados
+
+O projeto usa RSpec com exemplos de TDD e BDD:
+
+- Specs de models para regras de dominio.
+- Specs de requests para fluxos de usuario, autenticacao e permissoes.
+
+Para preparar e rodar:
+
+```bash
+bin/rails db:test:prepare
+bundle exec rspec
+```
+
 Com Docker:
 
 ```bash
@@ -75,4 +89,3 @@ Usuarios de exemplo:
 - Vendas: gerencia clientes e pedidos, e consulta produtos/estoque.
 - Financeiro: gerencia lancamentos financeiros e consulta clientes, produtos e pedidos.
 - Operacional: gerencia produtos e estoque, e consulta clientes, pedidos e financeiro.
-

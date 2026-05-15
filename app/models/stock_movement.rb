@@ -1,7 +1,7 @@
 class StockMovement < ApplicationRecord
   belongs_to :product
 
-  enum kind: { entry: 0, exit: 1, adjustment: 2 }
+  enum :kind, { entry: 0, exit: 1, adjustment: 2 }
 
   validates :kind, :quantity, presence: true
   validates :quantity, numericality: { other_than: 0, only_integer: true }

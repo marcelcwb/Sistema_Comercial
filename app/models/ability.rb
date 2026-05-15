@@ -4,6 +4,7 @@ class Ability
   def initialize(user)
     user ||= User.new
     can :read, :dashboard
+    return if user.role.blank?
 
     if user.admin?
       can :manage, :all

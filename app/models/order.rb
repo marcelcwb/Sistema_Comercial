@@ -5,7 +5,7 @@ class Order < ApplicationRecord
 
   accepts_nested_attributes_for :order_items, allow_destroy: true, reject_if: :all_blank
 
-  enum status: { draft: 0, confirmed: 1, canceled: 2 }
+  enum :status, { draft: 0, confirmed: 1, canceled: 2 }
 
   validates :ordered_on, presence: true
   validate :must_have_items, unless: :draft?
