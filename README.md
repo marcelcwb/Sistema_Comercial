@@ -75,4 +75,4 @@ Usuarios de exemplo:
 - Vendas: gerencia clientes e pedidos, e consulta produtos/estoque.
 - Financeiro: gerencia lancamentos financeiros e consulta clientes, produtos e pedidos.
 - Operacional: gerencia produtos e estoque, e consulta clientes, pedidos e financeiro.
-# Sistema_Comercial
+
