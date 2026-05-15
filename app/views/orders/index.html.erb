@@ -1,0 +1,40 @@
+<header class="page-head">
+  <div>
+    <p class="eyebrow">Vendas</p>
+    <h1>Pedidos</h1>
+  </div>
+  <% if can?(:create, Order) %>
+    <%= link_to "Novo pedido", new_order_path, class: "button" %>
+  <% end %>
+</header>
+
+<div class="table-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th>Pedido</th>
+        <th>Cliente</th>
+        <th>Data</th>
+        <th>Status</th>
+        <th>Total</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @orders.each do |order| %>
+        <tr>
+          <td><%= link_to "##{order.id}", order %></td>
+          <td><%= order.customer.name %></td>
+          <td><%= l(order.ordered_on) %></td>
+          <td><%= status_badge(order.status) %></td>
+          <td><%= currency(order.total) %></td>
+          <td class="actions">
+            <% if can?(:update, order) %>
+              <%= link_to "Editar", edit_order_path(order), class: "button secondary" %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,26 @@
+pt-BR:
+  date:
+    formats:
+      default: "%d/%m/%Y"
+  time:
+    formats:
+      default: "%d/%m/%Y %H:%M"
+      short: "%d/%m %H:%M"
+  activerecord:
+    errors:
+      messages:
+        record_invalid: "A validacao falhou: %{errors}"
+        blank: "nao pode ficar em branco"
+        taken: "ja esta em uso"
+        invalid: "nao e valido"
+        greater_than: "deve ser maior que %{count}"
+        greater_than_or_equal_to: "deve ser maior ou igual a %{count}"
+        other_than: "deve ser diferente de %{count}"
+    models:
+      customer: Cliente
+      product: Produto
+      order: Pedido
+      order_item: Item do pedido
+      user: Usuario
+      financial_entry: Lancamento financeiro
+      stock_movement: Movimentacao de estoque

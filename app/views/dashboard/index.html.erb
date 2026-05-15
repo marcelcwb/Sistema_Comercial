@@ -1,0 +1,92 @@
+<header class="page-head">
+  <div>
+    <p class="eyebrow">Operacao</p>
+    <h1>Dashboard comercial</h1>
+    <p class="subtle">Visao rapida de vendas, estoque e financeiro.</p>
+  </div>
+  <div class="actions">
+    <% if can?(:create, Order) %>
+      <%= link_to "Novo pedido", new_order_path, class: "button" %>
+    <% end %>
+    <% if can?(:create, Product) %>
+      <%= link_to "Novo produto", new_product_path, class: "button secondary" %>
+    <% end %>
+  </div>
+</header>
+
+<section class="grid">
+  <article class="metric">
+    <span>Clientes</span>
+    <strong><%= @customers_count %></strong>
+  </article>
+  <article class="metric">
+    <span>Produtos</span>
+    <strong><%= @products_count %></strong>
+  </article>
+  <% if can?(:read, FinancialEntry) %>
+    <article class="metric">
+      <span>A receber</span>
+      <strong><%= currency(@open_receivables) %></strong>
+    </article>
+    <article class="metric">
+      <span>A pagar</span>
+      <strong><%= currency(@open_payables) %></strong>
+    </article>
+  <% end %>
+</section>
+
+<section class="split">
+  <article class="panel">
+    <h2>Pedidos recentes</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Pedido</th>
+            <th>Cliente</th>
+            <th>Status</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @recent_orders.each do |order| %>
+            <tr>
+              <td><%= link_to "##{order.id}", order %></td>
+              <td><%= order.customer.name %></td>
+              <td><%= status_badge(order.status) %></td>
+              <td><%= currency(order.total) %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </article>
+
+  <article class="panel">
+    <h2>Estoque baixo</h2>
+    <% if can?(:read, Product) && @low_stock_products.any? %>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Produto</th>
+              <th>Saldo</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @low_stock_products.each do |product| %>
+              <tr>
+                <td><%= link_to product.name, product %></td>
+                <td><%= product.stock_balance %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    <% elsif can?(:read, Product) %>
+      <p class="subtle">Nenhum produto abaixo do estoque minimo.</p>
+    <% else %>
+      <p class="subtle">Seu perfil nao possui acesso ao estoque.</p>
+    <% end %>
+  </article>
+</section>

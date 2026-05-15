@@ -1,0 +1,33 @@
+<header class="page-head">
+  <div>
+    <p class="eyebrow">Seguranca</p>
+    <h1>Usuarios</h1>
+  </div>
+  <%= link_to "Novo usuario", new_user_path, class: "button" %>
+</header>
+
+<div class="table-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Email</th>
+        <th>Perfil</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td><%= user.name %></td>
+          <td><%= user.email %></td>
+          <td><%= user.role_name %></td>
+          <td class="actions">
+            <%= link_to "Editar", edit_user_path(user), class: "button secondary" %>
+            <%= button_to "Remover", user, method: :delete, class: "button danger", form: { data: { turbo_confirm: "Remover este usuario?" } } %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

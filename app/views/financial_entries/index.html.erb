@@ -1,0 +1,40 @@
+<header class="page-head">
+  <div>
+    <p class="eyebrow">Financeiro</p>
+    <h1>Contas</h1>
+  </div>
+  <% if can?(:create, FinancialEntry) %>
+    <%= link_to "Novo lancamento", new_financial_entry_path, class: "button" %>
+  <% end %>
+</header>
+
+<div class="table-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th>Descricao</th>
+        <th>Tipo</th>
+        <th>Status</th>
+        <th>Vencimento</th>
+        <th>Valor</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @financial_entries.each do |entry| %>
+        <tr>
+          <td><%= link_to entry.description, entry %></td>
+          <td><%= entry.kind.humanize %></td>
+          <td><%= status_badge(entry.status) %></td>
+          <td><%= l(entry.due_on) %></td>
+          <td><%= currency(entry.amount) %></td>
+          <td class="actions">
+            <% if can?(:update, entry) %>
+              <%= link_to "Editar", edit_financial_entry_path(entry), class: "button secondary" %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

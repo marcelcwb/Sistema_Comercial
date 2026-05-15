@@ -1,0 +1,61 @@
+<header class="page-head">
+  <div>
+    <p class="eyebrow">Produto</p>
+    <h1><%= @product.name %></h1>
+    <p class="subtle"><%= @product.sku %></p>
+  </div>
+  <div class="actions">
+    <% if can?(:create, StockMovement) %>
+      <%= link_to "Movimentar estoque", new_product_stock_movement_path(@product), class: "button" %>
+    <% end %>
+    <% if can?(:update, @product) %>
+      <%= link_to "Editar", edit_product_path(@product), class: "button secondary" %>
+    <% end %>
+    <%= link_to "Voltar", products_path, class: "button secondary" %>
+  </div>
+</header>
+
+<section class="grid">
+  <article class="metric">
+    <span>Preco</span>
+    <strong><%= currency(@product.price) %></strong>
+  </article>
+  <article class="metric">
+    <span>Saldo atual</span>
+    <strong><%= @product.stock_balance %></strong>
+  </article>
+  <article class="metric">
+    <span>Estoque minimo</span>
+    <strong><%= @product.minimum_stock %></strong>
+  </article>
+  <article class="metric">
+    <span>Status</span>
+    <strong><%= @product.low_stock? ? "Baixo" : "Ok" %></strong>
+  </article>
+</section>
+
+<section class="panel">
+  <h2>Movimentacoes</h2>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Data</th>
+          <th>Tipo</th>
+          <th>Quantidade</th>
+          <th>Descricao</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @product.stock_movements.order(created_at: :desc).each do |movement| %>
+          <tr>
+            <td><%= l(movement.created_at, format: :short) %></td>
+            <td><%= status_badge(movement.kind) %></td>
+            <td><%= movement.quantity %></td>
+            <td><%= movement.description %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</section>

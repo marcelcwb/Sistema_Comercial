@@ -1,0 +1,31 @@
+<div class="auth-page">
+  <section class="auth-card">
+    <p class="eyebrow">Acesso seguro</p>
+    <h1>Entrar</h1>
+    <p class="subtle">Use seu usuario e senha para acessar o sistema.</p>
+
+    <% if notice.present? %>
+      <p class="flash"><%= notice %></p>
+    <% end %>
+    <% if alert.present? %>
+      <p class="flash alert"><%= alert %></p>
+    <% end %>
+
+    <%= form_with(url: login_path) do |form| %>
+      <div class="form-grid">
+        <div class="field full">
+          <%= form.label :email, "Email" %>
+          <%= form.email_field :email, required: true, autofocus: true %>
+        </div>
+        <div class="field full">
+          <%= form.label :password, "Senha" %>
+          <%= form.password_field :password, required: true %>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <%= form.submit "Entrar" %>
+      </div>
+    <% end %>
+  </section>
+</div>

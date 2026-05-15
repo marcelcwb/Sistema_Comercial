@@ -1,0 +1,43 @@
+<header class="page-head">
+  <div>
+    <p class="eyebrow">Estoque</p>
+    <h1>Produtos</h1>
+  </div>
+  <% if can?(:create, Product) %>
+    <%= link_to "Novo produto", new_product_path, class: "button" %>
+  <% end %>
+</header>
+
+<div class="table-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th>Produto</th>
+        <th>SKU</th>
+        <th>Preco</th>
+        <th>Saldo</th>
+        <th>Minimo</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @products.each do |product| %>
+        <tr>
+          <td><%= link_to product.name, product %></td>
+          <td><%= product.sku %></td>
+          <td><%= currency(product.price) %></td>
+          <td><%= product.stock_balance %></td>
+          <td><%= product.minimum_stock %></td>
+          <td class="actions">
+            <% if can?(:create, StockMovement) %>
+              <%= link_to "Movimentar", new_product_stock_movement_path(product), class: "button secondary" %>
+            <% end %>
+            <% if can?(:update, product) %>
+              <%= link_to "Editar", edit_product_path(product), class: "button secondary" %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

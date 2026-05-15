@@ -1,0 +1,40 @@
+<header class="page-head">
+  <div>
+    <p class="eyebrow">Relacionamento</p>
+    <h1>Clientes</h1>
+  </div>
+  <% if can?(:create, Customer) %>
+    <%= link_to "Novo cliente", new_customer_path, class: "button" %>
+  <% end %>
+</header>
+
+<div class="table-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Documento</th>
+        <th>Email</th>
+        <th>Telefone</th>
+        <th>Cidade</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @customers.each do |customer| %>
+        <tr>
+          <td><%= link_to customer.name, customer %></td>
+          <td><%= customer.document %></td>
+          <td><%= customer.email %></td>
+          <td><%= customer.phone %></td>
+          <td><%= [customer.city, customer.state].compact.join(" / ") %></td>
+          <td class="actions">
+            <% if can?(:update, customer) %>
+              <%= link_to "Editar", edit_customer_path(customer), class: "button secondary" %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

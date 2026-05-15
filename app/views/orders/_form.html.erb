@@ -1,0 +1,47 @@
+<%= form_with(model: order, class: "form-panel") do |form| %>
+  <%= render "shared/errors", record: order %>
+
+  <div class="form-grid">
+    <div class="field">
+      <%= form.label :customer_id, "Cliente" %>
+      <%= form.collection_select :customer_id, @customers, :id, :name, prompt: "Selecione" %>
+    </div>
+    <div class="field">
+      <%= form.label :ordered_on, "Data" %>
+      <%= form.date_field :ordered_on %>
+    </div>
+    <div class="field">
+      <%= form.label :status, "Status" %>
+      <%= form.select :status, Order.statuses.keys.map { |status| [status.humanize, status] } %>
+    </div>
+  </div>
+
+  <h2>Itens</h2>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Produto</th>
+          <th>Quantidade</th>
+          <th>Valor unitario</th>
+          <th>Remover</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= form.fields_for :order_items do |item_form| %>
+          <tr>
+            <td><%= item_form.collection_select :product_id, @products, :id, :name, prompt: "Selecione" %></td>
+            <td><%= item_form.number_field :quantity, min: 1 %></td>
+            <td><%= item_form.number_field :unit_price, step: "0.01", min: 0 %></td>
+            <td><%= item_form.check_box :_destroy %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="form-actions">
+    <%= form.submit "Salvar pedido" %>
+    <%= link_to "Cancelar", orders_path, class: "button secondary" %>
+  </div>
+<% end %>

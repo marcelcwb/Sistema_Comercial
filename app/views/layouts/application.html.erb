@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <title>Sistema Comercial</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+  </head>
+
+  <body>
+    <aside class="sidebar">
+      <%= link_to "Sistema Comercial", root_path, class: "brand" %>
+      <nav class="nav">
+        <%= link_to "Dashboard", root_path %>
+        <% if can?(:read, Customer) %>
+          <%= link_to "Clientes", customers_path %>
+        <% end %>
+        <% if can?(:read, Product) %>
+          <%= link_to "Produtos", products_path %>
+        <% end %>
+        <% if can?(:read, Order) %>
+          <%= link_to "Pedidos", orders_path %>
+        <% end %>
+        <% if can?(:read, FinancialEntry) %>
+          <%= link_to "Financeiro", financial_entries_path %>
+        <% end %>
+        <% if can?(:manage, User) %>
+          <%= link_to "Usuarios", users_path %>
+        <% end %>
+      </nav>
+
+      <% if current_user %>
+        <div class="user-box">
+        <strong><%= current_user.name %></strong>
+        <span><%= current_user.email %></span>
+        <span><%= current_user.role_name %></span>
+          <%= button_to "Sair", destroy_user_session_path, method: :delete, class: "logout-button" %>
+        </div>
+      <% end %>
+    </aside>
+
+    <main class="shell">
+      <% if notice.present? %>
+        <p class="flash"><%= notice %></p>
+      <% end %>
+      <% if alert.present? %>
+        <p class="flash alert"><%= alert %></p>
+      <% end %>
+
+      <%= yield %>
+    </main>
+  </body>
+</html>

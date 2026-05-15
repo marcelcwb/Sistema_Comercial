@@ -1,0 +1,31 @@
+<header class="page-head">
+  <div>
+    <p class="eyebrow">Estoque</p>
+    <h1>Movimentar estoque</h1>
+    <p class="subtle"><%= @product.name %> possui saldo atual de <%= @product.stock_balance %>.</p>
+  </div>
+</header>
+
+<%= form_with(model: [@product, @stock_movement], class: "form-panel") do |form| %>
+  <%= render "shared/errors", record: @stock_movement %>
+
+  <div class="form-grid">
+    <div class="field">
+      <%= form.label :kind, "Tipo" %>
+      <%= form.select :kind, StockMovement.kinds.keys.map { |kind| [kind.humanize, kind] } %>
+    </div>
+    <div class="field">
+      <%= form.label :quantity, "Quantidade" %>
+      <%= form.number_field :quantity, required: true %>
+    </div>
+    <div class="field full">
+      <%= form.label :description, "Descricao" %>
+      <%= form.text_field :description %>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= form.submit "Salvar movimentacao" %>
+    <%= link_to "Cancelar", @product, class: "button secondary" %>
+  </div>
+<% end %>

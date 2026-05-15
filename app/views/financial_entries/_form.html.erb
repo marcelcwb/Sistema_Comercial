@@ -1,0 +1,35 @@
+<%= form_with(model: financial_entry, class: "form-panel") do |form| %>
+  <%= render "shared/errors", record: financial_entry %>
+
+  <div class="form-grid">
+    <div class="field full">
+      <%= form.label :description, "Descricao" %>
+      <%= form.text_field :description, required: true %>
+    </div>
+    <div class="field">
+      <%= form.label :kind, "Tipo" %>
+      <%= form.select :kind, FinancialEntry.kinds.keys.map { |kind| [kind.humanize, kind] } %>
+    </div>
+    <div class="field">
+      <%= form.label :status, "Status" %>
+      <%= form.select :status, FinancialEntry.statuses.keys.map { |status| [status.humanize, status] } %>
+    </div>
+    <div class="field">
+      <%= form.label :amount, "Valor" %>
+      <%= form.number_field :amount, step: "0.01", min: 0 %>
+    </div>
+    <div class="field">
+      <%= form.label :due_on, "Vencimento" %>
+      <%= form.date_field :due_on %>
+    </div>
+    <div class="field">
+      <%= form.label :paid_on, "Pagamento" %>
+      <%= form.date_field :paid_on %>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= form.submit "Salvar lancamento" %>
+    <%= link_to "Cancelar", financial_entries_path, class: "button secondary" %>
+  </div>
+<% end %>

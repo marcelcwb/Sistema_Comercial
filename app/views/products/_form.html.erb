@@ -1,0 +1,27 @@
+<%= form_with(model: product, class: "form-panel") do |form| %>
+  <%= render "shared/errors", record: product %>
+
+  <div class="form-grid">
+    <div class="field full">
+      <%= form.label :name, "Nome" %>
+      <%= form.text_field :name, required: true %>
+    </div>
+    <div class="field">
+      <%= form.label :sku, "SKU" %>
+      <%= form.text_field :sku, required: true %>
+    </div>
+    <div class="field">
+      <%= form.label :price, "Preco" %>
+      <%= form.number_field :price, step: "0.01", min: 0 %>
+    </div>
+    <div class="field">
+      <%= form.label :minimum_stock, "Estoque minimo" %>
+      <%= form.number_field :minimum_stock, min: 0 %>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= form.submit "Salvar" %>
+    <%= link_to "Cancelar", products_path, class: "button secondary" %>
+  </div>
+<% end %>

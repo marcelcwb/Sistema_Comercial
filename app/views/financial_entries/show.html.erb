@@ -1,0 +1,21 @@
+<header class="page-head">
+  <div>
+    <p class="eyebrow">Financeiro</p>
+    <h1><%= @financial_entry.description %></h1>
+  </div>
+  <div class="actions">
+    <% if can?(:update, @financial_entry) %>
+      <%= link_to "Editar", edit_financial_entry_path(@financial_entry), class: "button" %>
+    <% end %>
+    <%= link_to "Voltar", financial_entries_path, class: "button secondary" %>
+  </div>
+</header>
+
+<section class="panel detail-list">
+  <div><span>Tipo</span><%= @financial_entry.kind.humanize %></div>
+  <div><span>Status</span><%= @financial_entry.status.humanize %></div>
+  <div><span>Valor</span><%= currency(@financial_entry.amount) %></div>
+  <div><span>Vencimento</span><%= l(@financial_entry.due_on) %></div>
+  <div><span>Pagamento</span><%= @financial_entry.paid_on ? l(@financial_entry.paid_on) : "-" %></div>
+  <div><span>Pedido</span><%= @financial_entry.order ? link_to("##{@financial_entry.order.id}", @financial_entry.order) : "-" %></div>
+</section>

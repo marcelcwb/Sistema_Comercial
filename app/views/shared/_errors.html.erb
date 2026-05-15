@@ -1,0 +1,10 @@
+<% if record.errors.any? %>
+  <div class="errors">
+    <strong>Revise os campos abaixo:</strong>
+    <ul>
+      <% record.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>

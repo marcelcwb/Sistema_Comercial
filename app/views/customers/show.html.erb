@@ -1,0 +1,19 @@
+<header class="page-head">
+  <div>
+    <p class="eyebrow">Cliente</p>
+    <h1><%= @customer.name %></h1>
+  </div>
+  <div class="actions">
+    <% if can?(:update, @customer) %>
+      <%= link_to "Editar", edit_customer_path(@customer), class: "button" %>
+    <% end %>
+    <%= link_to "Voltar", customers_path, class: "button secondary" %>
+  </div>
+</header>
+
+<section class="panel detail-list">
+  <div><span>Documento</span><%= @customer.document.presence || "-" %></div>
+  <div><span>Email</span><%= @customer.email.presence || "-" %></div>
+  <div><span>Telefone</span><%= @customer.phone.presence || "-" %></div>
+  <div><span>Cidade</span><%= [@customer.city, @customer.state].compact.join(" / ").presence || "-" %></div>
+</section>
